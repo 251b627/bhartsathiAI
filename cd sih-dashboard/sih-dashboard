@@ -1,0 +1,84 @@
+import { useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import './App.css'
+
+function App() {
+  const [search, setSearch] = useState("");
+  const [location, setLocation] = useState("");
+
+  // Dummy Data
+  const dummyInternships = [
+    { id: 1, title: "Web Dev Intern", company: "TCS", location: "Bhopal", skill: "React" },
+    { id: 2, title: "Data Science Intern", company: "Infosys", location: "Indore", skill: "Python" },
+    { id: 3, title: "AI Intern", company: "DRDO", location: "Delhi", skill: "Machine Learning" },
+    { id: 4, title: "UI/UX Intern", company: "Adobe", location: "Bangalore", skill: "Figma" },
+    { id: 5, title: "React Intern", company: "Wipro", location: "Bhopal", skill: "React" },
+  ];
+
+  // Filter Logic
+  const filteredInternships = dummyInternships.filter(intern =>
+    intern.title.toLowerCase().includes(search.toLowerCase()) &&
+    intern.location.toLowerCase().includes(location.toLowerCase())
+  );
+
+  // Chart ke liye data banana
+  const skillData = [
+    { name: 'React', count: dummyInternships.filter(i => i.skill === 'React').length },
+    { name: 'Python', count: dummyInternships.filter(i => i.skill === 'Python').length },
+    { name: 'ML', count: dummyInternships.filter(i => i.skill === 'Machine Learning').length },
+    { name: 'Figma', count: dummyInternships.filter(i => i.skill === 'Figma').length },
+  ];
+
+  return (
+    <div className="container">
+      <h1>SIH Internship Dashboard</h1>
+      
+      {/* Filter Box */}
+      <div className="filter-box">
+        <input 
+          type="text" 
+          placeholder="Search by Title..." 
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <select value={location} onChange={(e) => setLocation(e.target.value)}>
+          <option value="">All Locations</option>
+          <option value="Bhopal">Bhopal</option>
+          <option value="Indore">Indore</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Bangalore">Bangalore</option>
+        </select>
+      </div>
+
+      {/* Chart */}
+      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+        <h2>Skill Distribution</h2>
+        <ResponsiveContainer width="100%" height={250}>
+          <BarChart data={skillData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="count" fill="#5a67d8" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Cards */}
+      <div className="card-container">
+        {filteredInternships.map(intern => (
+          <div key={intern.id} className="card">
+            <h3>{intern.title}</h3>
+            <p><b>Company:</b> {intern.company}</p>
+            <p><b>Location:</b> {intern.location}</p>
+            <p><b>Skill:</b> {intern.skill}</p>
+            <button>Apply Now</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+

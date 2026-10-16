@@ -1,0 +1,51 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial; }
+body { background: #f4f4f9; padding: 20px; }
+.container { max-width: 1200px; margin: auto; }
+h1 { text-align: center; margin-bottom: 20px; color: #333; }
+
+.filter-box { 
+  background: white; 
+  padding: 15px; 
+  border-radius: 8px; 
+  margin-bottom: 20px; 
+  display: flex; 
+  gap: 15px; 
+  flex-wrap: wrap; 
+}
+.filter-box input, .filter-box select { 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  flex: 1; 
+}
+
+.card-container { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px; 
+}
+.card { 
+  background: white; 
+  padding: 20px; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+.card h3 { color: #5a67d8; margin-bottom: 10px; }
+.card button { 
+  background: #5a67d8; 
+  color: white; 
+  border: none; 
+  padding: 8px 12px; 
+  border-radius: 5px; 
+  margin-top: 10px; 
+  cursor: pointer; 
+}
+
+/* Responsive - Mobile ke liye */
+@media (max-width: 768px) { 
+  .card-container { grid-template-columns: repeat(2, 1fr); } 
+}
+@media (max-width: 480px) { 
+  .card-container { grid-template-columns: 1fr; } 
+  .filter-box { flex-direction: column; }
+}
